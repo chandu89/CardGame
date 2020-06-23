@@ -1,0 +1,26 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'app/channels/**/*'
+    - 'app/jobs/**/*'
+    - 'app/mailers/**/*'
+    - 'config.ru'
+    - 'db/seeds.rb'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: true
+  Exclude:
+    - 'app/models/application_record.rb'
