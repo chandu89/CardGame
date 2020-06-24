@@ -58,5 +58,21 @@ RSpec.describe Api::V1::GamesController, type: :controller do
         get(:compare_cards, params: {id: game.id, cards: ["", "11 of Hearts"], format: :json})
         expect(JSON.parse(response.body)).to eql "your card array contains empty string"
       end
+      it 'returns bigger card in same suit' do
+        get(:compare_cards, params: {id: game.id, cards: ["10 of Hearts", "9 of Hearts"], format: :json})
+        expect(JSON.parse(response.body)["winner"]).to eql "10 of Hearts"
+      end
+      it 'returns bigger card in same suit' do
+        get(:compare_cards, params: {id: game.id, cards: ["9 of Hearts", "11 of Spades"], format: :json})
+        expect(JSON.parse(response.body)["winner"]).to eql "9 of Hearts"
+      end
+      it 'returns bigger card in same suit' do
+        get(:compare_cards, params: {id: game.id, cards: ["7 of Hearts", "9 of Hearts"], format: :json})
+        expect(JSON.parse(response.body)["winner"]).to eql "9 of Hearts"
+      end
+      it 'returns bigger card in same suit' do
+        get(:compare_cards, params: {id: game.id, cards: ["9 of Hearts", "9 of Hearts"], format: :json})
+        expect(JSON.parse(response.body)["winner"]).to eql "Both Cards are equal"
+      end
     end
 end
