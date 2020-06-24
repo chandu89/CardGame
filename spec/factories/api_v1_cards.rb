@@ -1,5 +1,6 @@
 FactoryBot.define do
-  factory :api_v1_card, class: 'Api::V1::Card' do
-    
+  factory :card, class: 'Api::V1::Card' do
+    rank {Faker::Name.unique.name}
+    suit {Faker::Name.unique.name}
   end
 end

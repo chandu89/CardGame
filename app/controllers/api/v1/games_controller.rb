@@ -6,16 +6,22 @@ class Api::V1::GamesController < ApplicationController
     if @game.persisted?
       render status: :created, json: @game
     else
-      render :json => @game.error, :status => :bad_request
+      render :json => @game.error, :status => :unprocessable_entity
     end
   end
 
   def get_card_by_game
-    render json: @game.deck.cards.present? ? @game.deck.cards.first.delete : "your deck got empty".to_json
+    render json: @game.deck.present? && @game.deck.cards.present? ? @game.deck.cards.first.delete : "your deck got empty".to_json
   end
 
   def compare_cards
-    render json: { winner: compare_and_return_card(params[:cards]) }
+    cards = params[:cards]
+    if cards.present?
+      response = cards.first.empty? || cards.last.empty? ? "your card array contains empty string".to_json : {winner: compare_and_return_card(params[:cards])}
+    else
+      response = "your card array is empty".to_json
+    end
+    render json: response 
   end
 
   private
@@ -28,7 +34,7 @@ class Api::V1::GamesController < ApplicationController
       deck.cards << cards
       deck.save!
     rescue => e
-      render :json => e, :status => :bad_request
+      render :json => e, :status => :unprocessable_entity
     end
   end
   def game_params
