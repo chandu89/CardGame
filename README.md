@@ -28,8 +28,8 @@ This is card game based on API. We Can consume this API By using Faraday call in
 Then navigate to `localhost:3000` in your browser.
 
 9. API Calls 
-        a. http://localhost:3000/api/v1/games/create_game
-            Request:
+       a. http://localhost:3000/api/v1/games/create_game
+          Request:
             {
              "first_player": "First Player",
              "second_player": "Second Player"
@@ -42,7 +42,7 @@ Then navigate to `localhost:3000` in your browser.
                 "created_at": "2020-06-24T15:29:49.945Z",
                 "updated_at": "2020-06-24T15:29:49.945Z"
             }
-        b. http://localhost:3000/api/v1/games/:game_id/show_card_by_game
+       b. http://localhost:3000/api/v1/games/:game_id/show_card_by_game
             {
                 "id": 523,
                 "rank": "10",
@@ -51,7 +51,7 @@ Then navigate to `localhost:3000` in your browser.
                 "created_at": "2020-06-24T15:22:00.359Z",
                 "updated_at": "2020-06-24T15:22:00.359Z"
             }
-        c. http://localhost:4000/api/v1/games/:game_id/compare_cards
+       c. http://localhost:4000/api/v1/games/:game_id/compare_cards
             Request:
             {
              "cards":  ["10 of Hearts", "9 of Hearts"]
