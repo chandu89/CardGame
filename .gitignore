@@ -12,6 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+node_module/*
 
 /bin/*
 # Ignore pidfiles, but keep the directory.

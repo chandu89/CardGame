@@ -26,21 +26,21 @@ RSpec.describe Api::V1::GamesController, type: :controller do
       end
 
       it 'returns error when empty params' do
-        get(:create_game, params: {game: {}, format: :json})
-        expect(JSON.parse(response.body)).to eql 'param is missing or the value is empty: game'
-        expect(response.code).to eql '422'
+        expect {
+          get :create_game, params: {game: {}, format: :json }
+        }.to raise_error(ActionController::ParameterMissing)
       end
     end
 
-    describe '#get_card_by_game' do
+    describe '#show_card_by_game' do
       it 'returns deleted card from deck' do
-        get(:get_card_by_game, params: {id: game.id, format: :json})
+        get(:show_card_by_game, params: {id: game.id, format: :json})
         expect(JSON.parse(response.body)['id']).to be_a Numeric
       end
 
       it 'returns empty deck message' do
         game.deck.cards.delete_all
-        get(:get_card_by_game, params: {id: game.id, format: :json})
+        get(:show_card_by_game, params: {id: game.id, format: :json})
         expect(JSON.parse(response.body)).to eql 'your deck got empty'
       end
     end

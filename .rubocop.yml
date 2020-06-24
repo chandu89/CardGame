@@ -18,9 +18,20 @@ AllCops:
     - 'db/seeds.rb'
     - 'spec/rails_helper.rb'
     - 'spec/spec_helper.rb'
+    - 'app/models/api/v1.rb'
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
+    - 'spec/**/*'
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/Documentation:
   Enabled: true
   Exclude:
     - 'app/models/application_record.rb'
+    - 'app/controllers/application_controller.rb'
+Style/HashSyntax:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 120
+Metrics/AbcSize:
+  Enabled: false      

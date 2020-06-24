@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :games, only: [:create] do
         post :create_game, on: :collection
-        get :get_card_by_game, on: :member
+        get :show_card_by_game, on: :member
         post :compare_cards, on: :member
       end
     end
