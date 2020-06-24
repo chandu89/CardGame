@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: card_game_production
-  username: card_game
+  username: postgres
   password: <%= ENV['CARD_GAME_DATABASE_PASSWORD'] %>
