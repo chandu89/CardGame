@@ -52,7 +52,7 @@ Then navigate to `localhost:3000` in your browser.
                         "created_at": "2020-06-24T15:22:00.359Z",
                         "updated_at": "2020-06-24T15:22:00.359Z"
                     }
-       c. http://localhost:4000/api/v1/games/:game_id/compare_cards
+       c. http://localhost:3000/api/v1/games/:game_id/compare_cards
                     Request:
                     {
                      "cards":  ["10 of Hearts", "9 of Hearts"]
