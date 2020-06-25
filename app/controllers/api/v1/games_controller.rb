@@ -17,12 +17,14 @@ module Api
 
       # show_card_by_game will delete and return top card  from deck
       def show_card_by_game
-        game = @game.try(:deck).try(:cards)
-        if game.present?
-          render json: game.first.destroy
+        game = @game.try(:deck)
+        cards = JSON.parse(game)
+        if cards['cards'].present?
+          deleted_card = cards['cards'].pop
+          @game.update(deck: cards.to_json)
+          render json: deleted_card
         else
           # If Cards is empty for the game, then game should be deleted
-          game.try(:destroy)
           render json: 'your deck got empty'.to_json
         end
       end
@@ -46,10 +48,7 @@ module Api
       # initialize_deck will initialize deck and card classes
       def initialize_deck
         @game = Api::V1::Game.create!(game_params)
-        cards = (0..51).to_a.shuffle.collect { |id| Api::V1::Card.create(rank: RANKS[id % 13], suit: SUITS[id % 4]) }
-        deck = Api::V1::Deck.new(game_id: @game.id)
-        deck.cards << cards
-        deck.save!
+        @game.update(deck: Api::V1::Deck.new.to_json)
       rescue ActiveRecord::RecordInvalid => e
         render :json => e, :status => :unprocessable_entity
       end

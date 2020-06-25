@@ -35,11 +35,11 @@ RSpec.describe Api::V1::GamesController, type: :controller do
     describe '#show_card_by_game' do
       it 'returns deleted card from deck' do
         get(:show_card_by_game, params: {id: game.id, format: :json})
-        expect(JSON.parse(response.body)['id']).to be_a Numeric
+        expect(JSON.parse(response.body)['suit']).to be_a String
       end
 
       it 'returns empty deck message' do
-        game.deck.cards.delete_all
+        allow_any_instance_of(Api::V1::Game).to receive(:deck).and_return({'cards': []}.to_json)
         get(:show_card_by_game, params: {id: game.id, format: :json})
         expect(JSON.parse(response.body)).to eql 'your deck got empty'
       end
