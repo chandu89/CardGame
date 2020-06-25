@@ -17,9 +17,12 @@ module Api
 
       # show_card_by_game will delete and return top card  from deck
       def show_card_by_game
-        if @game.deck.present? && @game.deck.cards.present?
-          render json: @game.deck.cards.first.delete
+        game = @game.try(:deck).try(:cards)
+        if game.present?
+          render json: game.first.destroy
         else
+          # If Cards is empty for the game, then game should be deleted
+          game.try(:destroy)
           render json: 'your deck got empty'.to_json
         end
       end
@@ -31,7 +34,7 @@ module Api
           if cards.first.empty? || cards.last.empty?
             render json: 'your card array contains empty string'.to_json
           else
-            render json: { winner: compare_and_return_card(params[:cards]) }
+            render json: { winner: compare_and_return_card(cards) }
           end
         else
           render json: 'your card array is empty'.to_json
