@@ -31,7 +31,7 @@ module Api
       def compare_cards
         cards = params[:cards]
         if cards.present?
-          if cards.first.empty? || cards.last.empty?
+          if cards.any?(&:blank?)
             render json: 'your card array contains empty string'.to_json
           else
             render json: { winner: compare_and_return_card(cards) }
@@ -54,7 +54,7 @@ module Api
         render :json => e, :status => :unprocessable_entity
       end
 
-      # game_params will resctric other params to create game
+      # game_params will restrict other params to create game
       # strong params
       def game_params
         params.require(:game).permit(:first_player, :second_player)
